@@ -518,6 +518,8 @@ internal class Identification
                 return Model.B650_AORUS_ELITE_AX_V2;
             case var _ when name.Equals("B650 AORUS ELITE AX ICE", StringComparison.OrdinalIgnoreCase):
                 return Model.B650_AORUS_ELITE_AX_ICE;
+            case var _ when name.Equals("B650 GAMING X AX", StringComparison.OrdinalIgnoreCase):
+                return Model.B650_GAMING_X_AX;
             case var _ when name.Equals("B650E AORUS ELITE AX ICE", StringComparison.OrdinalIgnoreCase):
                 return Model.B650E_AORUS_ELITE_AX_ICE;
             case var _ when name.Equals("B650M AORUS PRO", StringComparison.OrdinalIgnoreCase):
@@ -609,6 +611,8 @@ internal class Identification
                 return Model.X870E_AORUS_PRO;
             case var _ when name.Equals("X870E AORUS PRO ICE", StringComparison.OrdinalIgnoreCase):
                 return Model.X870E_AORUS_PRO_ICE;
+            case var _ when name.Equals("X870E AORUS XTREME AI TOP", StringComparison.OrdinalIgnoreCase):
+                return Model.X870E_AORUS_XTREME_AI_TOP;
             case var _ when name.Equals("PROART X870E-CREATOR WIFI", StringComparison.OrdinalIgnoreCase):
                 return Model.PROART_X870E_CREATOR_WIFI;
             case var _ when name.Equals("PRIME X870-P", StringComparison.OrdinalIgnoreCase):
