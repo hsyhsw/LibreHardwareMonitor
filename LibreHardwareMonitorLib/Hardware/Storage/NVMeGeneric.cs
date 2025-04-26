@@ -3,6 +3,7 @@
 // Copyright (C) LibreHardwareMonitor and Contributors.
 // All Rights Reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 using LibreHardwareMonitor.Interop;
@@ -26,6 +27,7 @@ public sealed class NVMeGeneric : AbstractStorage
     {
         Smart = new NVMeSmart(storageInfo);
         _info = info;
+        _updateInterval = TimeSpan.FromSeconds(5);
         CreateSensors();
     }
 
