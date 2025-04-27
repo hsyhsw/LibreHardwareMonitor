@@ -483,76 +483,6 @@ internal sealed class SuperIOHardware : Hardware
 
                         break;
 
-                    case Manufacturer.MSI when model == Model.X870_TOMAHAWK_WIFI: //NCT6687D with 9 fans
-                    case Manufacturer.MSI when model == Model.X870_TOMAHAWK_WIFI:
-                    case Manufacturer.MSI when model == Model.Z890_CARBON_WIFI:
-                    case Manufacturer.MSI when model == Model.X870E_TOMAHAWK_WIFI:
-                    case Manufacturer.MSI when model == Model.X870E_CARBON_WIFI:
-                    case Manufacturer.MSI when model == Model.X870_P_WIFI:
-                    case Manufacturer.MSI when model == Model.Z890_EDGE_TI_WIFI:
-                        v.Add(new Voltage("+12V", 0));
-                        v.Add(new Voltage("+5V", 1));
-                        v.Add(new Voltage("CPU Northbridge/SoC", 2));
-                        v.Add(new Voltage("VDDIO", 3, 1, 1, 0));
-                        v.Add(new Voltage("Vcore", 4, -1, 2, 0));
-                        v.Add(new Voltage("+3.3V", 8));
-                        v.Add(new Voltage("+3V Standby", 11));
-                        v.Add(new Voltage("AVSB", 12));
-                        v.Add(new Voltage("CPU Termination", 9));
-                        v.Add(new Voltage("CMOS Battery", 13));
-
-                        t.Add(new Temperature("CPU", 0));
-                        t.Add(new Temperature("System", 1));
-                        t.Add(new Temperature("VRM MOS", 2));
-                        t.Add(new Temperature("Chipset A", 3));
-
-                        f.Add(new Fan("CPU Fan", 0));
-                        f.Add(new Fan("Pump Fan", 1));
-                        f.Add(new Fan("EZConn Fan", 3));
-                        f.Add(new Fan("System Fan #6", 10));
-                        f.Add(new Fan("System Fan #5", 11));
-                        f.Add(new Fan("System Fan #4", 12));
-                        f.Add(new Fan("System Fan #3", 13));
-                        f.Add(new Fan("System Fan #2", 14));
-                        f.Add(new Fan("System Fan #1", 15));
-
-                        c.Add(new Control("CPU Fan", 0));
-                        c.Add(new Control("Pump Fan", 1));
-                        c.Add(new Control("EZConn Fan", 3));
-                        break;
-                    
-                    case Manufacturer.MSI when model == Model.Z890_CARBON_WIFI: //NCT6687D with 8 fans
-                    case Manufacturer.MSI when model == Model.X870E_CARBON_WIFI:
-                        v.Add(new Voltage("+12V", 0));
-                        v.Add(new Voltage("+5V", 1));
-                        v.Add(new Voltage("CPU Northbridge/SoC", 2));
-                        v.Add(new Voltage("VDDIO", 3, 1, 1, 0));
-                        v.Add(new Voltage("Vcore", 4, -1, 2, 0));
-                        v.Add(new Voltage("+3.3V", 8));
-                        v.Add(new Voltage("+3V Standby", 11));
-                        v.Add(new Voltage("AVSB", 12));
-                        v.Add(new Voltage("CPU Termination", 9));
-                        v.Add(new Voltage("CMOS Battery", 13));
-
-                        t.Add(new Temperature("CPU", 0));
-                        t.Add(new Temperature("System", 1));
-                        t.Add(new Temperature("VRM MOS", 2));
-                        t.Add(new Temperature("Chipset A", 3));
-
-                        f.Add(new Fan("CPU Fan", 0));
-                        f.Add(new Fan("Pump Fan", 1));
-                        f.Add(new Fan("EZConn Fan", 3));
-                        f.Add(new Fan("System Fan #5", 11));
-                        f.Add(new Fan("System Fan #4", 12));
-                        f.Add(new Fan("System Fan #3", 13));
-                        f.Add(new Fan("System Fan #2", 14));
-                        f.Add(new Fan("System Fan #1", 15));
-
-                        c.Add(new Control("CPU Fan", 0));
-                        c.Add(new Control("Pump Fan", 1));
-                        c.Add(new Control("EZConn Fan", 3));
-                        break;
-
                     default:
                         v.Add(new Voltage("+12V", 0));
                         v.Add(new Voltage("+5V", 1));
@@ -596,6 +526,142 @@ internal sealed class SuperIOHardware : Hardware
                         c.Add(new Control("System Fan #6", 7));
 
                         break;
+                }
+
+                break;
+
+            case Chip.NCT6687DR:
+
+                // Universal Sensor and Control defaults
+                t.Add(new Temperature("CPU Core", 0));
+                t.Add(new Temperature("System", 1));
+                t.Add(new Temperature("VRM MOS", 2));
+                t.Add(new Temperature("Chipset", 3));
+
+                f.Add(new Fan("CPU Fan", 0));
+                f.Add(new Fan("Pump Fan #1", 1));
+                f.Add(new Fan("System Fan #1", 2));
+                f.Add(new Fan("System Fan #2", 3));
+                f.Add(new Fan("System Fan #3", 4));
+                f.Add(new Fan("System Fan #4", 5));
+                f.Add(new Fan("System Fan #5", 6));
+                f.Add(new Fan("System Fan #6", 7));
+                
+                c.Add(new Control("CPU Fan", 0));
+                c.Add(new Control("Pump Fan", 1));
+                c.Add(new Control("System Fan #1", 2));
+                c.Add(new Control("System Fan #2", 3));
+                c.Add(new Control("System Fan #3", 4));
+                c.Add(new Control("System Fan #4", 5));
+                c.Add(new Control("System Fan #5", 6));
+                c.Add(new Control("System Fan #6", 7));
+
+                switch (model)
+                {
+                    case Model.X870E_TOMAHAWK_WIFI:
+                    case Model.X870E_EDGE_TI_WIFI:
+                        v.Add(new Voltage("+12V", 0));
+                        v.Add(new Voltage("+5V", 1));
+                        v.Add(new Voltage("CPU Northbridge/SoC", 2));
+                        v.Add(new Voltage("DIMM", 3, 1, 1));
+                        v.Add(new Voltage("Vcore", 4, -1, 2));
+                        v.Add(new Voltage("Chipset", 5));
+                        v.Add(new Voltage("CPU System Agent", 6));
+                        //v.Add(new Voltage("Unknown_4", 7)); //"Voltage #2"
+                        v.Add(new Voltage("+3.3V", 8));
+                        v.Add(new Voltage("VREF", 9));
+                        v.Add(new Voltage("+1.8V", 10));
+                        v.Add(new Voltage("+3V Standby", 11));
+                        v.Add(new Voltage("AVSB", 12));
+                        v.Add(new Voltage("CMOS Battery", 13));
+
+                        t.Add(new Temperature("CPU Socket", 4));
+
+                        break;
+
+                    case Model.X870E_CARBON_WIFI:
+                    case Model.X870E_GODLIKE:
+                        v.Add(new Voltage("+12V", 0));
+                        v.Add(new Voltage("+5V", 1));
+                        v.Add(new Voltage("CPU Northbridge/SoC", 2));
+                        v.Add(new Voltage("DIMM", 3, 1, 1));
+                        v.Add(new Voltage("Vcore", 4, -1, 2));
+                        v.Add(new Voltage("Chipset", 5));
+                        v.Add(new Voltage("CPU System Agent", 6));
+                        //v.Add(new Voltage("Unknown_4", 7)); //"Voltage #2"
+                        v.Add(new Voltage("+3.3V", 8));
+                        v.Add(new Voltage("VREF", 9));
+                        v.Add(new Voltage("+1.8V", 10));
+                        v.Add(new Voltage("+3V Standby", 11));
+                        v.Add(new Voltage("AVSB", 12));
+                        v.Add(new Voltage("CMOS Battery", 13));
+                        
+                        t.Add(new Temperature("PCIe x1", 5));
+                        t.Add(new Temperature("M2_1", 6));
+
+                        break;
+
+                    case Model.Z890_CARBON_WIFI:
+                    case Model.Z890_TOMAHAWK_WIFI:
+                    case Model.Z890_ACE:
+                        v.Add(new Voltage("+12V", 0));
+                        v.Add(new Voltage("+5V", 1));
+                        v.Add(new Voltage("Vcore", 2));
+                        v.Add(new Voltage("VIN5", 3));
+                        v.Add(new Voltage("VDIMM", 4));
+                        v.Add(new Voltage("Chipset", 5));
+                        //v.Add(new Voltage("CPU System Agent", 6));
+                        v.Add(new Voltage("VIN7", 7));
+                        v.Add(new Voltage("+3.3V", 8));
+                        v.Add(new Voltage("VTT", 9));
+                        v.Add(new Voltage("+1.8V", 10));
+                        v.Add(new Voltage("+3V Standby", 11));
+                        v.Add(new Voltage("AVSB", 12));
+                        v.Add(new Voltage("CMOS Battery", 13));
+
+                        t.Add(new Temperature("CPU Socket", 4));
+                        t.Add(new Temperature("PCIe x1", 5));
+                        t.Add(new Temperature("M2_1", 6));
+
+                        break;
+
+                    case Model.Z890_EDGE_TI_WIFI:
+                    case Model.Z890P_PRO_WIFI:
+                        v.Add(new Voltage("+12V", 0));
+                        v.Add(new Voltage("+5V", 1));
+                        v.Add(new Voltage("Vcore", 2));
+                        v.Add(new Voltage("VIN5", 3));
+                        v.Add(new Voltage("VDIMM", 4));
+                        v.Add(new Voltage("Chipset", 5));
+                        //v.Add(new Voltage("CPU System Agent", 6));
+                        v.Add(new Voltage("Unknown_3", 7));
+                        v.Add(new Voltage("+3.3V", 8));
+                        v.Add(new Voltage("VTT", 9));
+                        v.Add(new Voltage("+1.8V", 10));
+                        v.Add(new Voltage("+3V Standby", 11));
+                        v.Add(new Voltage("AVSB", 12));
+                        v.Add(new Voltage("CMOS Battery", 13));
+
+                        break;
+
+                    default:
+                        v.Add(new Voltage("+12V", 0));
+                        v.Add(new Voltage("+5V", 1));
+                        v.Add(new Voltage("CPU Northbridge/SoC", 2));
+                        v.Add(new Voltage("DIMM", 3, 1, 1));
+                        v.Add(new Voltage("Vcore", 4, -1, 2));
+                        v.Add(new Voltage("Chipset", 5));
+                        v.Add(new Voltage("CPU System Agent", 6));
+                        //v.Add(new Voltage("Unknown_4", 7)); //"Voltage #2"
+                        v.Add(new Voltage("+3.3V", 8));
+                        v.Add(new Voltage("VREF", 9));
+                        v.Add(new Voltage("+1.8V", 10));
+                        v.Add(new Voltage("+3V Standby", 11));
+                        v.Add(new Voltage("AVSB", 12));
+                        v.Add(new Voltage("CMOS Battery", 13));
+
+                        break;
+
                 }
 
                 break;
@@ -2276,6 +2342,7 @@ internal sealed class SuperIOHardware : Hardware
 
                         break;
 
+                    case Model.X670E_AORUS_XTREME: // IT8689E
                     case Model.X870E_AORUS_PRO: // ITE IT8696E
                     case Model.X870E_AORUS_PRO_ICE: // ITE IT8696E
                     case Model.X870E_AORUS_XTREME_AI_TOP: // ITE IT8696E
@@ -3498,6 +3565,33 @@ internal sealed class SuperIOHardware : Hardware
                         c.Add(new Control("Chassis Fan #1", 3)); // CHA_FAN1/WP
                         c.Add(new Control("Chassis Fan #2", 4)); // CHA_FAN2/WP
                         c.Add(new Control("Chassis Fan #3", 6)); // CHA_FAN3/WP
+                        break;
+
+                    case Model.B850M_STEEL_LEGEND_WIFI: // NCT6799D
+                        v.Add(new Voltage("Vcore", 0, 10, 10));
+                        v.Add(new Voltage("AVCC", 2, 34, 34));
+                        v.Add(new Voltage("+3.3V", 3, 34, 34));
+                        v.Add(new Voltage("+3V Standby", 7, 34, 34));
+                        v.Add(new Voltage("CMOS Battery", 8, 34, 34));
+                        v.Add(new Voltage("CPU Termination", 9));
+
+                        t.Add(new Temperature("CPU Core", 0));
+                        t.Add(new Temperature("CPU", 1));
+                        t.Add(new Temperature("Motherboard", 2));
+                        t.Add(new Temperature("PCH TS10", 9));
+                        t.Add(new Temperature("T_Sensor", 24));
+
+                        f.Add(new Fan("CPU Fan #1", 1)); // CPU_FAN1
+                        f.Add(new Fan("CPU Fan #2 / Pump", 0)); // CPU_FAN2/PUMP
+                        f.Add(new Fan("Chassis Fan #1", 3)); // CHA_FAN1
+                        f.Add(new Fan("Chassis Fan #2", 4)); // CHA_FAN2
+                        f.Add(new Fan("Chassis Fan #3", 6)); // CHA_FAN3
+
+                        c.Add(new Control("CPU Fan #1", 1)); // CPU_FAN1
+                        c.Add(new Control("CPU Fan #2 / Pump", 0)); // CPU_FAN2/PUMP
+                        c.Add(new Control("Chassis Fan #1", 3)); // CHA_FAN1
+                        c.Add(new Control("Chassis Fan #2", 4)); // CHA_FAN2
+                        c.Add(new Control("Chassis Fan #3", 6)); // CHA_FAN3
                         break;
 
                     default:
